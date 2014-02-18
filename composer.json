@@ -27,6 +27,9 @@
     "autoload": {
         "psr-0": {
             "Palmabit\\Library\\": "src/"
+        },
+        "psr-4": {
+            "Palmabit\\Library\\Tests\\" : "tests/"
         }
     },
     "minimum-stability": "stable"
