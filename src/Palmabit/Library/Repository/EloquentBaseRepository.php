@@ -1,11 +1,13 @@
-<?php  namespace Palmabit\Library\Repository; 
+<?php namespace Palmabit\Library\Repository;
 /**
- * Class BaseRepository
+ * Class EloquentBaseRepository
  *
  * @author jacopo beschi jacopo@jacopobeschi.com
  */
 
-class EloquentBaseRepository implements \Palmabit\Library\Repository\Interfaces\BaseRepositoryInterface
+use Palmabit\Library\Repository\Interfaces\BaseRepositoryInterface;
+
+class EloquentBaseRepository implements BaseRepositoryInterface
 {
     /**
      * The name of the model: needs to be eloquent model
@@ -13,9 +15,9 @@ class EloquentBaseRepository implements \Palmabit\Library\Repository\Interfaces\
      */
     protected $model_name;
 
-    public function __construct($model_name)
+    public function __construct($model_name = null)
     {
-        $this->model_name = $model_name;
+        if($model_name) $this->model_name = $model_name;
     }
 
     /**
