@@ -4,6 +4,9 @@
  *
  * @author jacopo beschi j.beschi@palmabit.com
  */
+use Request;
+use Route;
+
 class Helper 
 {
     /**
