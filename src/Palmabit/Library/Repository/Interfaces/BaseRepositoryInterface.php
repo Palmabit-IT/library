@@ -2,7 +2,7 @@
 /**
  * Interface BaseRepositoryInterface
  *
- * @author jacopo beschi jacopobeschi@jacopobeschi.com
+ * @author jacopo beschi j.beschi@palmabit.com
  */
 interface BaseRepositoryInterface 
 {
