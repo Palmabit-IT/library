@@ -25,7 +25,7 @@ class Helper
      * @param $match
      * @param $active
      */
-    public static function get_active_name($match, $active = 'active')
+    public static function get_active_route_name($match, $active = 'active')
     {
         $route_name = Route::currentRouteName();
         $base_name = array_values(explode(".", $route_name))[0];
