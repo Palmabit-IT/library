@@ -41,7 +41,8 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     public function update($id, array $data)
     {
         $obj = $this->find($id);
-        return $obj->update($data);
+        $obj->update($data);
+        return $obj;
     }
 
     /**
@@ -75,6 +76,6 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     public function all()
     {
         $model = $this->model_name;
-        return $model->all();
+        return $model::all();
     }
 } 
