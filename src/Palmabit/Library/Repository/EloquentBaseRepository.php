@@ -6,6 +6,7 @@
  */
 
 use Palmabit\Library\Repository\Interfaces\BaseRepositoryInterface;
+use Event;
 
 class EloquentBaseRepository implements BaseRepositoryInterface
 {
@@ -41,6 +42,7 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     public function update($id, array $data)
     {
         $obj = $this->find($id);
+        Event::fire('repository.updating', [$obj]);
         $obj->update($data);
         return $obj;
     }
@@ -54,6 +56,7 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     public function delete($id)
     {
         $obj = $this->find($id);
+        Event::fire('repository.deleting', [$obj]);
         return $obj->delete();
     }
 

@@ -12,13 +12,14 @@ use Palmabit\Library\Exceptions\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\MessageBag;
 use Palmabit\Library\Exceptions\NotFoundException;
+use Palmabit\Authentication\Exceptions\PermissionException;
 use Event;
 
 class FormModel implements FormInterface{
 
     /**
      * Validatore
-     * @var Palmabit\Library\Validators\ValidatorInterface
+     * @var \Palmabit\Library\Validators\ValidatorInterface
      */
     protected $v;
     /**
@@ -80,6 +81,11 @@ class FormModel implements FormInterface{
                 $this->errors = new MessageBag(array("model" => "Elemento non trovato"));
                 throw new NotFoundException();
             }
+            catch(PermissionException $e)
+            {
+                $this->errors = new MessageBag(array("model" => "Non è possibile modificare questo elemento"));
+                throw new PermissionException();
+            }
         }
         else
         {
@@ -124,6 +130,11 @@ class FormModel implements FormInterface{
             {
                 $this->errors = new MessageBag(array("model" => "Elemento non esistente"));
                 throw new NotFoundException();
+            }
+            catch(PermissionException $e)
+            {
+                $this->errors = new MessageBag(array("model" => "Non è possibile cancellare questo elemento"));
+                throw new PermissionException();
             }
         }
         else
