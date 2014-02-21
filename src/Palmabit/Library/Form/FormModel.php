@@ -133,7 +133,7 @@ class FormModel implements FormInterface{
             }
             catch(PermissionException $e)
             {
-                $this->errors = new MessageBag(array("model" => "Non è possibile cancellare questo elemento"));
+                $this->errors = new MessageBag(array("model" => "Non è possibile cancellare questo elemento, verifica i tuoi permessi e che l'elemento non sia associato ad altri."));
                 throw new PermissionException();
             }
         }
