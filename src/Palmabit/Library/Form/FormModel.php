@@ -116,7 +116,7 @@ class FormModel implements FormInterface{
     /**
      * Cancella il model dal db
      * @param $input
-     * @throws Palmabit\Library\Exceptions\NotFoundException
+     * @throws \Palmabit\Library\Exceptions\NotFoundException
      */
     public function delete(array $input)
     {
