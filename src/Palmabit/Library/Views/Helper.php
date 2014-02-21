@@ -28,7 +28,16 @@ class Helper
     public static function get_active_route_name($match, $active = 'active')
     {
         $route_name = Route::currentRouteName();
-        $base_name = array_values(explode(".", $route_name))[0];
-        return (strcasecmp($base_name, $match) == 0) ? $active : '';
+        return (strcasecmp(static::get_base_route_name($route_name), $match) == 0) ? $active : '';
+    }
+
+    /**
+     * Get the first part of the route name before the dot
+     * @param $route_name
+     * @return mixed
+     */
+    public static function get_base_route_name($route_name)
+    {
+        return array_values(explode(".", $route_name))[0];
     }
 } 
