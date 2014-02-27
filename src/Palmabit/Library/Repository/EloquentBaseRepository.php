@@ -67,7 +67,6 @@ class EloquentBaseRepository implements BaseRepositoryInterface
      */
     public function find($id)
     {
-        dd($this->model);
         return $this->model->findOrFail($id);
     }
 
