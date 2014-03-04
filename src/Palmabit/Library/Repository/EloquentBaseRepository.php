@@ -5,6 +5,8 @@
  * @author jacopo beschi jacopo@jacopobeschi.com
  */
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Palmabit\Library\Exceptions\NotFoundException;
 use Palmabit\Library\Repository\Interfaces\BaseRepositoryInterface;
 use Event;
 
@@ -41,7 +43,7 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     public function update($id, array $data)
     {
         $obj = $this->find($id);
-        Event::fire('repository.updating', [$obj]);
+        Event::fire('repository.updating', [$obj, $data]);
         $obj->update($data);
         return $obj;
     }
@@ -67,7 +69,16 @@ class EloquentBaseRepository implements BaseRepositoryInterface
      */
     public function find($id)
     {
-        return $this->model->findOrFail($id);
+        try
+        {
+            $model = $this->model->findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            throw new NotFoundException;
+        }
+
+        return $model;
     }
 
     /**
