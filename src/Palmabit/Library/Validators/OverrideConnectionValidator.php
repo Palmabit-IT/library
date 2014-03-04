@@ -12,6 +12,7 @@ class OverrideConnectionValidator extends BaseValidator
      * @return mixed
      * @override
      */
+
     public function instanceValidator($input)
     {
         $validator = V::make($input, static::$rules);
