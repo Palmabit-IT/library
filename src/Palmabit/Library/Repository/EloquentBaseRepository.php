@@ -65,7 +65,7 @@ class EloquentBaseRepository implements BaseRepositoryInterface
      * Find a model by his id
      * @param $id
      * @return mixed
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws \Palmabit\Library\Exceptions\NotFoundException
      */
     public function find($id)
     {
