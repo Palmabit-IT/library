@@ -16,7 +16,6 @@ class AbstractReaderTest extends TestCase {
 
     /**
      * @test
-     * @group 1
      **/
     public function it_istantiate_objects_from_stdclass()
     {

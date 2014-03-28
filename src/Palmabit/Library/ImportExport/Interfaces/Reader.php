@@ -29,12 +29,6 @@ interface Reader
     public function readObjects();
 
     /**
-     * Read a n number of objects and set pointer to the last readed element if possible
-     * @return \ArrayIterator
-     */
-    public function readNObjects();
-
-    /**
      * Obtains all the objects readed as StdClass
      * @return \ArrayIterator
      */
