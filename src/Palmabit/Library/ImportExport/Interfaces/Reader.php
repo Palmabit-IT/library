@@ -26,10 +26,11 @@ interface Reader
      * Read all the objects from the source
      * @return \ArrayIterator
      */
-    public function readObjects();
+    public function readEelements();
 
     /**
      * Obtains all the objects readed as StdClass
+     * reflecting an imperative mapping of key => value
      * @return \ArrayIterator
      */
     public function getObjects();
