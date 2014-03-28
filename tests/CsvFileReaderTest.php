@@ -14,7 +14,7 @@ class CsvFileReaderTest extends TestCase {
     public function it_open_a_file()
     {
         $reader = new CsvFileReader();
-        $reader->open(__DIR__."/mock_file.csv");
+        $reader->open(__DIR__."/test_file.csv");
     }
 
     /**
@@ -23,7 +23,7 @@ class CsvFileReaderTest extends TestCase {
     public function it_read_element()
     {
         $reader = new CsvFileReader();
-        $reader->open(__DIR__."/mock_file.csv");
+        $reader->open(__DIR__."/test_file.csv");
         $element = $reader->readElement();
 
         $this->assertEquals('stdClass', get_class($element));
@@ -37,7 +37,7 @@ class CsvFileReaderTest extends TestCase {
     public function it_reads_elements()
     {
         $reader = new CsvFileReader();
-        $reader->open(__DIR__."/mock_file.csv");
+        $reader->open(__DIR__."/test_file.csv");
         $elements = $reader->readElements();
 
         $this->assertEquals(2, count($elements));

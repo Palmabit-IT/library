@@ -1,13 +1,13 @@
 <?php  namespace Palmabit\Library\Tests;
 use Illuminate\Database\Eloquent\Model;
-use Palmabit\Library\ImportExport\AbstractReader;
+use Palmabit\Library\ImportExport\Reader;
 use Mockery as m;
 /**
  * Test AbstractReaderTest
  *
  * @author jacopo beschi jacopo@jacopobeschi.com
  */
-class AbstractReaderTest extends TestCase {
+class ReaderTest extends TestCase {
 
     public function tearDown()
     {
@@ -23,6 +23,27 @@ class AbstractReaderTest extends TestCase {
         $objects = $this->createStdClassArray($number);
 
         $reader = m::mock('Palmabit\Library\Tests\AbstractReaderStub')->makePartial();
+        $reader->setObjects($objects);
+
+        $reader->istantiateObjects();
+        $istantiated_objects = $reader->getObjectsIstantiated();
+
+        $this->assertEquals("ArrayIterator",get_class($istantiated_objects));
+        $this->assertEquals($number, count($istantiated_objects));
+        $this->assertInstanceOf('\Palmabit\Library\Tests\IstantiatedObjectStub', $istantiated_objects->current());
+        $this->assertEquals("name1", $istantiated_objects->current()->name);
+    }
+    
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     **/
+    public function it_throws_exception_if_cannot_find_the_class_on_istantiateObjects()
+    {
+        $number = 10;
+        $objects = $this->createStdClassArray($number);
+
+        $reader = m::mock('Palmabit\Library\Tests\AbstractReaderStubNoClass')->makePartial();
         $reader->setObjects($objects);
 
         $reader->istantiateObjects();
@@ -63,9 +84,13 @@ class IstantiatedObjectStub extends Model
     protected $fillable = ["name","surname"];
 }
 
-abstract class AbstractReaderStub extends AbstractReader
+abstract class AbstractReaderStub extends Reader
 {
     protected $istantiated_objects_class_name = "\Palmabit\Library\Tests\IstantiatedObjectStub";
 }
 
+abstract class AbstractReaderStubNoClass extends Reader
+{
+    protected $istantiated_objects_class_name = "NonExistentClass_";
+}
 

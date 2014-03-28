@@ -14,7 +14,7 @@ class CsvFileReader extends Reader
      * @var \SplFileObject
      */
     protected $spl_file_object;
-    /**
+    /**re
      * @var string
      */
     protected $delimiter = ",";

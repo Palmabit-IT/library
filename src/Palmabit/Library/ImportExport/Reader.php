@@ -5,6 +5,7 @@
  * @author jacopo beschi jacopo@jacopobeschi.com
  * @todo better error handling
  */
+use InvalidArgumentException;
 use Palmabit\Library\ImportExport\Interfaces\Reader as ReaderInterface;
 use ArrayIterator, Exception;
 
@@ -50,6 +51,8 @@ abstract class Reader implements ReaderInterface
     public function istantiateObjects()
     {
         if( ! $this->istantiated_objects_class_name) throw new Exception("You need to set istantiated_object_class_name");
+
+        if( ! class_exists($this->istantiated_objects_class_name)) throw new InvalidArgumentException("The class name to istantiate given is not valid.");
 
         $objects_iterator = new ArrayIterator;
 
