@@ -1,15 +1,17 @@
-<?php use Palmabit\Library\ImportExport\Interfaces;
+<?php namespace Palmabit\Library\ImportExport\Interfaces;
 /**
  * Interface Saver
  *
  * @author jacopo beschi j.beschi@palmabit.com
  */
-interface Saver 
+use ArrayIterator;
+
+interface Saver
 {
     /**
      * Handle saving the array of data
-     * @param array $data
+     * @param \ArrayIterator $objects
      * @return mixed
      */
-    public function save(array $data);
+    public function save(ArrayIterator $objects);
 } 

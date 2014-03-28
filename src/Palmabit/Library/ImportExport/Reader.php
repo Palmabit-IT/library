@@ -5,10 +5,10 @@
  * @author jacopo beschi jacopo@jacopobeschi.com
  * @todo better error handling
  */
-use Palmabit\Library\ImportExport\Interfaces\Reader;
+use Palmabit\Library\ImportExport\Interfaces\Reader as ReaderInterface;
 use ArrayIterator, Exception;
 
-abstract class AbstractReader implements Reader
+abstract class Reader implements ReaderInterface
 {
     /**
      * The objects as StdClass

@@ -26,7 +26,7 @@ interface Reader
      * Read all the objects from the source
      * @return \ArrayIterator
      */
-    public function readEelements();
+    public function readElements();
 
     /**
      * Obtains all the objects readed as StdClass
