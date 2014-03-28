@@ -31,7 +31,7 @@ abstract class Reader implements ReaderInterface
      */
     public function getObjects()
     {
-        return $this->objecs;
+        return $this->objects;
     }
 
     /**

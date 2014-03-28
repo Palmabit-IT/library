@@ -38,7 +38,8 @@ class CsvFileReaderTest extends TestCase {
     {
         $reader = new CsvFileReader();
         $reader->open(__DIR__."/test_file.csv");
-        $elements = $reader->readElements();
+        $reader->readElements();
+        $elements = $reader->getObjects();
 
         $this->assertEquals(2, count($elements));
         $this->assertEquals("name1", $elements->current()->first_name);

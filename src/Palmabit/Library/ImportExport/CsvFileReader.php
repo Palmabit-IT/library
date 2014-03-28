@@ -74,8 +74,8 @@ class CsvFileReader extends Reader
             if($object) $iterator->append($object);
         }while((boolean)$object);
 
-        $this->objects_istantiated = $iterator;
-        return $this->objects_istantiated;
+        $this->objects = $iterator;
+        return $this->objects;
     }
 
     /**
