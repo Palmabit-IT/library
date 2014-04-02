@@ -89,4 +89,12 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     {
         return $this->model->all();
     }
-} 
+
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+}
