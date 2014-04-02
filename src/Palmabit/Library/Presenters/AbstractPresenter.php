@@ -18,4 +18,13 @@ abstract class AbstractPresenter {
 
         return $this->resource->{$name};
     }
+
+    /**
+     * @return mixed
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
 }
