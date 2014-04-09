@@ -69,11 +69,11 @@ class FormBuilder extends LaravelFormBuilder
         return $this->old_language_input_name;
     }
 
-    public function open(array $options = array())
+    public function close()
     {
         $this->updateOldLanguageInput();
 
-        return parent::open($options);
+        return parent::close();
     }
 
     private function updateOldLanguageInput()
@@ -82,7 +82,6 @@ class FormBuilder extends LaravelFormBuilder
         if (isset($this->model)) foreach ($this->model->toArray() as $model_field => $model_value) {
             $old_lang_input[$model_field] = $model_value;
         }
-
         Session::flash($this->old_language_input_name, $old_lang_input);
     }
 }

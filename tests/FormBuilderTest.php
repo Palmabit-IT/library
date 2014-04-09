@@ -60,6 +60,7 @@ class FormBuilderTest extends TestCase {
         $this->builder->setModel($model_stub);
 
         $this->builder->open();
+        $this->builder->close();
 
         $this->assertTrue(Session::has($this->builder->getOldLanguageInputName() ) );
         $old_input = Session::get($this->builder->getOldLanguageInputName() );
