@@ -25,7 +25,7 @@ class FormBuilderTest extends TestCase {
     /**
      * @test
      **/
-    public function it_gets_session_value_at_last()
+    public function it_getsSessionValueAtLast()
     {
         list($field_name, $field_value) = $this->initializeOldSessionLanguageData();
         Input::shouldReceive('has')
@@ -36,6 +36,20 @@ class FormBuilderTest extends TestCase {
         $form_value = $this->builder->getValueAttribute($field_name, null);
 
         $this->assertEquals($field_value, $form_value);
+    }
+    
+    /**
+     * @test
+     **/
+    public function it_doesntGetModelData_IfModelNotExists()
+    {
+        $model_stub = new EloquentStub;
+        $model_stub->field = "value";
+        $this->builder->setModel($model_stub);
+
+        $form_value = $this->builder->getValueAttribute("field", null);
+
+        $this->assertNull($form_value);
     }
 
     /**
@@ -49,22 +63,38 @@ class FormBuilderTest extends TestCase {
 
         $this->assertNull($form_value);
     }
-    
+
     /**
      * @test
      **/
-    public function it_updateSessionLangValuesWithModelAttributes()
+    public function it_updateSessionLangValuesWithModelAttributes_ifModelExists()
     {
         $model_stub = new EloquentStub;
         $model_stub->field = "value";
+        $model_stub->exists = true;
         $this->builder->setModel($model_stub);
 
-        $this->builder->open();
-        $this->builder->close();
+        $this->builder->updateOldLanguageInput();
 
         $this->assertTrue(Session::has($this->builder->getOldLanguageInputName() ) );
         $old_input = Session::get($this->builder->getOldLanguageInputName() );
         $this->assertEquals($old_input["field"], $model_stub->field);
+    }
+
+    /**
+     * @test
+     **/
+    public function it_does_not_update_id_field()
+    {
+        $model_stub = new EloquentStub;
+        $model_stub->id = "value";
+        $this->builder->setModel($model_stub);
+
+        $this->builder->updateOldLanguageInput();
+
+        $this->assertTrue(Session::has($this->builder->getOldLanguageInputName() ) );
+        $old_input = Session::get($this->builder->getOldLanguageInputName() );
+        $this->assertFalse(isset($old_input["id"]));
     }
 
     /**

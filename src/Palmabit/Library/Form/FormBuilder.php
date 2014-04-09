@@ -31,7 +31,7 @@ class FormBuilder extends LaravelFormBuilder
 
         if ( ! is_null($value)) return $value;
 
-        if (isset($this->model))
+        if ($this->checkIfModelExists())
         {
             return $this->getModelValueAttribute($name);
         }
@@ -39,7 +39,7 @@ class FormBuilder extends LaravelFormBuilder
         if ($this->canUpdateValueWithSessionLang())
         {
             $language_input = $this->getOldLanguageInput();
-            if( isset($language_input[$name])) return $language_input[$name];
+            if($this->isAValidFormAttribute($name, $language_input)) return $language_input[$name];
         }
     }
 
@@ -69,19 +69,31 @@ class FormBuilder extends LaravelFormBuilder
         return $this->old_language_input_name;
     }
 
-    public function close()
-    {
-        $this->updateOldLanguageInput();
-
-        return parent::close();
-    }
-
-    private function updateOldLanguageInput()
+    public function updateOldLanguageInput()
     {
         $old_lang_input = [];
-        if (isset($this->model)) foreach ($this->model->toArray() as $model_field => $model_value) {
+        if ($this->checkIfModelExists()) foreach ($this->model->toArray() as $model_field => $model_value) {
             $old_lang_input[$model_field] = $model_value;
         }
-        Session::flash($this->old_language_input_name, $old_lang_input);
+
+        Session::put($this->old_language_input_name, $old_lang_input);
+    }
+
+    /**
+     * @return bool
+     */
+    private function checkIfModelExists()
+    {
+        return isset($this->model) && $this->model->exists;
+    }
+
+    /**
+     * @param $name
+     * @param $language_input
+     * @return bool
+     */
+    private function isAValidFormAttribute($name, $language_input)
+    {
+        return isset($language_input[$name]) && $name != 'id';
     }
 }
