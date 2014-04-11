@@ -47,7 +47,7 @@ class FormModel implements FormInterface{
     /**
      * Processa l'imput e chiama create o opdate a seconda
      * @param array $input
-     * @throws Palmabit\Library\Exceptions\PalmabitExceptionsInterface
+     * @throws \Palmabit\Library\Exceptions\PalmabitExceptionsInterface
      */
     public function process(array $input)
     {
@@ -66,7 +66,7 @@ class FormModel implements FormInterface{
     /**
      * Chiama il repository con i metodo update o create
      * @param $input
-     * @throws Palmabit\Library\Exceptions\NotFundException
+     * @throws \Palmabit\Library\Exceptions\NotFundException
      */
     protected function callRepository($input)
     {

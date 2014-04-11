@@ -55,7 +55,7 @@ class FormBuilderTest extends TestCase {
     /**
      * @test
      **/
-    public function it_doesnt_get_session_value_if_slug_lang_is_not_set()
+    public function it_doesntGetSessionValue_if_slugLangIsNotSet()
     {
         list($field_name, $field_value) = $this->initializeOldSessionLanguageData();
 
@@ -70,7 +70,8 @@ class FormBuilderTest extends TestCase {
     public function it_updateSessionLangValuesWithModelAttributes_ifModelExists()
     {
         $model_stub = new EloquentStub;
-        $model_stub->field = "value";
+        $model_stub->field1 = "value1";
+        $model_stub->field2 = "value2";
         $model_stub->exists = true;
         $this->builder->setModel($model_stub);
 
@@ -78,7 +79,8 @@ class FormBuilderTest extends TestCase {
 
         $this->assertTrue(Session::has($this->builder->getOldLanguageInputName() ) );
         $old_input = Session::get($this->builder->getOldLanguageInputName() );
-        $this->assertEquals($old_input["field"], $model_stub->field);
+        $this->assertEquals($old_input["field1"], $model_stub->field1);
+        $this->assertEquals($old_input["field2"], $model_stub->field2);
     }
 
     /**
