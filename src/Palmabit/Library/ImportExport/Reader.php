@@ -3,7 +3,6 @@
  * Class AbstractReader
  *
  * @author jacopo beschi jacopo@jacopobeschi.com
- * @todo better error handling
  */
 use InvalidArgumentException;
 use Palmabit\Library\ImportExport\Interfaces\Reader as ReaderInterface;
@@ -50,24 +49,34 @@ abstract class Reader implements ReaderInterface
      */
     public function istantiateObjects()
     {
-        if( ! $this->istantiated_objects_class_name) throw new Exception("You need to set istantiated_object_class_name");
-
-        if( ! class_exists($this->istantiated_objects_class_name)) throw new InvalidArgumentException("The class name to istantiate given is not valid.");
+        $this->validateObjectClassName();
 
         $objects_iterator = new ArrayIterator;
 
-        if($this->objects) foreach ($this->objects as $object)
-        {
-            // fetch data as array
-            $data_array = get_object_vars($object);
-            // istantiate new class
-            $object = new $this->istantiated_objects_class_name($data_array);
-            // append to iterator
-            $objects_iterator->append($object);
-        }
+        $this->appendObjectDataToIterator($objects_iterator);
 
         $this->objects_istantiated = $objects_iterator;
         return $this->objects_istantiated;
+    }
+
+    private function validateObjectClassName()
+    {
+        if (!$this->istantiated_objects_class_name) throw new Exception("You need to set istantiated_object_class_name");
+
+        if (!class_exists($this->istantiated_objects_class_name)) throw new InvalidArgumentException("The class name to istantiate given is not valid.");
+    }
+
+    /**
+     * @param $objects_iterator
+     */
+    private function appendObjectDataToIterator($objects_iterator)
+    {
+        if ($this->objects) foreach ($this->objects as $object) {
+            $data_array = $this->transformObjectDataToArray($object);
+            $object = $this->istantiateObjectClass($data_array);
+
+            $objects_iterator->append($object);
+        }
     }
 
     /**
@@ -86,4 +95,25 @@ abstract class Reader implements ReaderInterface
         $this->objects = $objects;
     }
 
+    /**
+     * @param $object
+     * @return array
+     */
+    private function transformObjectDataToArray($object)
+    {
+        $data_array = get_object_vars($object);
+
+        return $data_array;
+    }
+
+    /**
+     * @param $data_array
+     * @return mixed
+     */
+    private function istantiateObjectClass($data_array)
+    {
+        $object = new $this->istantiated_objects_class_name($data_array);
+
+        return $object;
+    }
 }
