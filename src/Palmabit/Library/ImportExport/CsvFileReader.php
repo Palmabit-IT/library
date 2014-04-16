@@ -17,7 +17,7 @@ class CsvFileReader extends Reader
     /**re
      * @var string
      */
-    protected $delimiter = ",";
+    protected $delimiter = ";";
     /**
      * @var Array
      */
@@ -36,7 +36,6 @@ class CsvFileReader extends Reader
         $this->spl_file_object = new SplFileObject($path);
         $this->spl_file_object->setCsvControl($this->delimiter);
         $this->columns_name = $this->spl_file_object->fgetcsv();
-
     }
 
     /**
@@ -50,6 +49,7 @@ class CsvFileReader extends Reader
         $csv_line_data = $this->spl_file_object->fgetcsv();
         if($csv_line_data)
         {
+            $csv_line_data[0] = $this->convertToUtf8($csv_line_data);
             $csv_line = array_combine($this->columns_name, $csv_line_data);
             // we cast it to StdClass
             return (object)$csv_line;
@@ -58,6 +58,15 @@ class CsvFileReader extends Reader
         {
             return false;
         }
+    }
+
+    /**
+     * @param $csv_line_data
+     * @return bool|mixed|string
+     */
+    protected function convertToUtf8($csv_line_data)
+    {
+      return mb_convert_encoding($csv_line_data[0], "UTF-8");
     }
 
     /**

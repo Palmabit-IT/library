@@ -45,4 +45,3 @@ class CsvFileReaderTest extends TestCase {
         $this->assertEquals("name1", $elements->current()->first_name);
     }
 }
- 
