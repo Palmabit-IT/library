@@ -97,4 +97,4 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     {
         return $this->model;
     }
-} 
+}
