@@ -10,6 +10,11 @@ use Palmabit\Library\Repository\EloquentBaseRepository;
  */
 class EloquentBaseRepositoryTest extends TestCase {
 
+  public function tearDown()
+  {
+    m::close();
+  }
+
   /**
    * @test
    **/
