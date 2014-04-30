@@ -21,6 +21,7 @@ class OverrideConnectionValidator extends BaseValidator
    * @param $input
    * @return bool
    */
+  /*
   public function validate($input)
   {
     Event::fire('validating', [$input]);
@@ -43,4 +44,5 @@ class OverrideConnectionValidator extends BaseValidator
     $validator->getPresenceVerifier()->setConnection($this->getConnection());
     return $validator;
   }
+  */
 } 

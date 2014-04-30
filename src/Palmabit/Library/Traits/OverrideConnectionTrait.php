@@ -6,6 +6,7 @@
  * @author jacopo beschi j.beschi@palmabit.com
  */
 use App;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 trait OverrideConnectionTrait
 {
@@ -15,8 +16,7 @@ trait OverrideConnectionTrait
    */
   public function getConnection()
   {
-    return DB::connection($this->getConnectionName());
-//    return static::resolveConnection($this->getConnectionName());
+    return Eloquent::resolveConnection($this->getConnectionName());
   }
 
   public function getConnectionName()
