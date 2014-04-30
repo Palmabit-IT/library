@@ -53,13 +53,24 @@ class CsvFileReader extends Reader
     if($csv_line_data)
     {
       $csv_line_data[0] = $this->convertToUtf8($csv_line_data);
-      $csv_line         = array_combine($this->columns_name, $csv_line_data);
-      // we cast it to StdClass
-      return (object)$csv_line;
-    } else
-    {
-      return false;
+      if($this->isValidLine($csv_line_data))
+      {
+        $csv_line         = array_combine($this->columns_name, $csv_line_data);
+        // we cast it to StdClass
+        return (object)$csv_line;
+      }
     }
+
+    return false;
+  }
+
+  /**
+   * @param $csv_line_data
+   * @return mixed
+   */
+  protected function isValidLine($csv_line_data)
+  {
+    return $csv_line_data[0];
   }
 
   /**
