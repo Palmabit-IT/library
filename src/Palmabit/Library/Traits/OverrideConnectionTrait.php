@@ -1,4 +1,5 @@
 <?php  namespace Palmabit\Library\Traits;
+
 /**
  * Trait OverrideConnectionTrait
  *
@@ -6,13 +7,20 @@
  */
 use App;
 
-trait OverrideConnectionTrait {
-    /**
-     * @override
-     * @return \Illuminate\Database\Connection
-     */
-    public function getConnection()
-    {
-        return (App::environment() != 'testing') ? static::resolveConnection('authentication'): static::resolveConnection($this->connection);
-    }
+trait OverrideConnectionTrait
+{
+  /**
+   * @override
+   * @return \Illuminate\Database\Connection
+   */
+  public function getConnection()
+  {
+    return DB::connection($this->getConnectionName());
+//    return static::resolveConnection($this->getConnectionName());
+  }
+
+  public function getConnectionName()
+  {
+    return (App::environment() != 'testing') ? 'authentication' : 'testbench';
+  }
 } 
