@@ -1,6 +1,7 @@
 <?php namespace Palmabit\Library\Validators;
 
-use Event, V;
+use Event;
+use Validator as V;
 use Illuminate\Validation\DatabasePresenceVerifier;
 use Palmabit\Library\Traits\OverrideConnectionTrait;
 use Palmabit\Library\Validators\AbstractValidator as BaseValidator;
