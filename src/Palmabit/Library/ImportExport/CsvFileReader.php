@@ -70,7 +70,7 @@ class CsvFileReader extends Reader
    */
   protected function isValidLine($csv_line_data)
   {
-    return $csv_line_data[0];
+    return $csv_line_data[0] && ! empty($csv_line_data[0]);
   }
 
   /**
