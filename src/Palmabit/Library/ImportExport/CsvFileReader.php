@@ -1,4 +1,5 @@
 <?php  namespace Palmabit\Library\ImportExport;
+
 use ArrayIterator;
 use Palmabit\Library\ImportExport\Reader;
 use SplFileObject;
@@ -15,6 +16,7 @@ class CsvFileReader extends Reader
      */
     protected $spl_file_object;
     /**re
+     *
      * @var string
      */
     protected $delimiter = ";";
@@ -33,6 +35,7 @@ class CsvFileReader extends Reader
      */
     public function open($path)
     {
+        $this->convertToLF($path);
         $this->spl_file_object = new SplFileObject($path);
         $this->spl_file_object->setCsvControl($this->delimiter);
         $this->columns_name = $this->spl_file_object->fgetcsv();
@@ -50,23 +53,16 @@ class CsvFileReader extends Reader
         if($csv_line_data)
         {
             $csv_line_data[0] = $this->convertToUtf8($csv_line_data);
-            $csv_line = array_combine($this->columns_name, $csv_line_data);
+            // questo controllo è per quando si esporta da excel
+            if(! $csv_line_data[0]) return false;
+
+            $csv_line         = array_combine($this->columns_name, $csv_line_data);
             // we cast it to StdClass
             return (object)$csv_line;
-        }
-        else
+        } else
         {
             return false;
         }
-    }
-
-    /**
-     * @param $csv_line_data
-     * @return bool|mixed|string
-     */
-    protected function convertToUtf8($csv_line_data)
-    {
-      return mb_convert_encoding($csv_line_data[0], "UTF-8");
     }
 
     /**
@@ -81,10 +77,18 @@ class CsvFileReader extends Reader
         {
             $object = $this->readElement();
             if($object) $iterator->append($object);
-        }while((boolean)$object);
+        } while((boolean)$object);
 
         $this->objects = $iterator;
         return $this->objects;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDelimiter()
+    {
+        return $this->delimiter;
     }
 
     /**
@@ -96,10 +100,36 @@ class CsvFileReader extends Reader
     }
 
     /**
-     * @return string
+     * @param $csv_line_data
+     * @return bool|mixed|string
      */
-    public function getDelimiter()
+    protected function convertToUtf8($csv_line_data)
     {
-        return $this->delimiter;
+        return mb_convert_encoding($csv_line_data[0], "UTF-8");
+    }
+
+    protected function convertToLF($path)
+    {
+        $cr   = "\r"; // Carriage Return: Mac
+        $lf   = "\n"; // Line Feed: Unix
+        $crlf = "\r\n"; // Carriage Return and Line Feed: Windows
+
+        $text = file_get_contents($path);
+
+        $text = $this->convertCharacters($crlf, $lf, $text);
+        $text = $this->convertCharacters($cr, $lf, $text);
+
+        file_put_contents($path, $text);
+    }
+
+    /**
+     * @param $cr
+     * @param $lf
+     * @param $text
+     * @return mixed
+     */
+    protected function convertCharacters($cr, $lf, $text)
+    {
+        return str_replace($cr, $lf, $text);
     }
 }
