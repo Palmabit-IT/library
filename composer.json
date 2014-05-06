@@ -29,7 +29,10 @@
         },
         "psr-4": {
             "Palmabit\\Library\\Tests\\" : "tests/"
-        }
+        },
+        "files" : [
+            "src/Palmabit/Library/helpers.php"
+        ]
     },
     "minimum-stability": "stable"
 }
