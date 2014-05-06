@@ -97,4 +97,9 @@ class EloquentBaseRepository implements BaseRepositoryInterface
     {
         return $this->model;
     }
+
+    protected function getValueItem($item, $default = null )
+    {
+        return isset($item) ? $item : $default;
+    }
 }
