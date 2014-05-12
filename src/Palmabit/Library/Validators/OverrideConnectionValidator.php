@@ -1,10 +1,6 @@
 <?php namespace Palmabit\Library\Validators;
 
 use Event;
-use Illuminate\Container\Container;
-use Illuminate\Database\ConnectionResolver;
-use Illuminate\Database\Connectors\ConnectionFactory;
-use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Facades\App;
 use Validator as V;
 use Illuminate\Validation\DatabasePresenceVerifier;
@@ -34,12 +30,11 @@ class OverrideConnectionValidator extends BaseValidator
 
         return true;
     }
-
-    public function instanceValidator($input)
-    {
-        $validator = V::make($input, static::$rules);
-        // update presence verifier
-        $validator->getPresenceVerifier()->setConnection($this->getConnection());
-        return $validator;
-    }
+  public function instanceValidator($input)
+  {
+    $validator = V::make($input, static::$rules);
+    // update presence verifier
+    $validator->getPresenceVerifier()->setConnection($this->getConnection());
+    return $validator;
+  }
 }
