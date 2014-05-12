@@ -45,7 +45,7 @@ class FormModel implements FormInterface{
     }
 
     /**
-     * Processa l'imput e chiama create o opdate a seconda
+     * Processa l'input e chiama create o opdate a seconda
      * @param array $input
      * @throws \Palmabit\Library\Exceptions\PalmabitExceptionsInterface
      */
