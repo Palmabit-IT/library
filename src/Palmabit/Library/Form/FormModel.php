@@ -51,16 +51,21 @@ class FormModel implements FormInterface{
      */
     public function process(array $input)
     {
-        if($this->v->validate($input))
+        try
         {
-            Event::fire("form.processing", array($input));
-            return $this->callRepository($input);
+            $success = $this->v->validate($input);
         }
-        else
+        catch(ValidationException $e)
         {
-            $this->errors = $this->v->getErrors();
-            throw new ValidationException;
+            $this->setErrorsAndThrowException();
         }
+        if( ! $success)
+        {
+            $this->setErrorsAndThrowException();
+        }
+
+        Event::fire("form.processing", array($input));
+        return $this->callRepository($input);
     }
 
     /**
@@ -146,6 +151,12 @@ class FormModel implements FormInterface{
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    protected function setErrorsAndThrowException()
+    {
+        $this->errors = $this->v->getErrors();
+        throw new ValidationException;
     }
 
 } 
