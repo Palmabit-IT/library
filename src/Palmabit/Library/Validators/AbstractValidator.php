@@ -16,7 +16,7 @@ abstract class AbstractValidator implements ValidatorInterface
     {
         Event::fire('validating', [$input]);
         $validator = V::make($input, static::$rules);
-
+        Event::fire('validating.withvalidator', [$validator]);
         if($validator->fails())
         {
             $this->errors = $validator->messages();
