@@ -159,4 +159,19 @@ class FormModel implements FormInterface{
         throw new ValidationException;
     }
 
-} 
+    /**
+     * @param mixed $r
+     */
+    public function setR($r)
+    {
+        $this->r = $r;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getR()
+    {
+        return $this->r;
+    }
+}
