@@ -3,6 +3,10 @@
 /**
  * Trait OverrideConnectionTrait
  *
+ * You need to use to test models that leverage validation.
+ * Using this Trait you override the default db connection using
+ * the "testing" connection
+ *
  * @author jacopo beschi j.beschi@palmabit.com
  */
 use App;

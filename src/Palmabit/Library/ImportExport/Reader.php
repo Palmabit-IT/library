@@ -2,6 +2,9 @@
 /**
  * Class AbstractReader
  *
+ * This class allow reading from different sources.
+ * In order to see the usage please check the examples/import_export folder
+ *
  * @author jacopo beschi jacopo@jacopobeschi.com
  */
 use InvalidArgumentException;
