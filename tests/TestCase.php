@@ -23,5 +23,13 @@ class TestCase extends \Orchestra\Testbench\TestCase  {
         ];
     }
 
+    /**
+     * @test
+     **/
+    public function dummy()
+    {
+
+    }
+
 }
  
