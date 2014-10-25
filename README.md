@@ -1,4 +1,4 @@
-#Catalog
+#Library
 
 [![Build Status](https://travis-ci.org/Palmabit-IT/library.png)](https://travis-ci.org/Palmabit-IT/library)
 
