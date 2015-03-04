@@ -1,9 +1,10 @@
 <?php namespace Palmabit\Library\Forms;
 
 use App;
-use Hosio\Library\Exceptions\FormValidationException;
+
 use Illuminate\Validation\Factory as Validator;
 use Illuminate\Validation\Validator as ValidatorInstance;
+use Palmabit\Library\Exceptions\FormValidationException;
 
 abstract class FormValidator {
 
@@ -31,7 +32,7 @@ abstract class FormValidator {
    * @param array $formData
    * @param null  $parameters
    * @return bool
-   * @throws \Hosio\Library\Exceptions\FormValidationException
+   * @throws \Palmabit\Library\Exceptions\FormValidationException
    */
   public function validate(array $formData, $parameters = null)
   {
