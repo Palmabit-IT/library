@@ -1,4 +1,4 @@
-<?php namespace Hosio\Library\Classes\Forms;
+<?php namespace Palmabit\Library\Forms;
 
 use App;
 use Hosio\Library\Exceptions\FormValidationException;

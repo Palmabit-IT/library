@@ -1,4 +1,4 @@
-<?php namespace Hosio\Library\Exceptions;
+<?php namespace Palmabit\Library\Exceptions;
 
 use Illuminate\Support\MessageBag;
 
