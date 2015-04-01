@@ -38,7 +38,7 @@ class LibraryServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('Way\Generators\GeneratorsServiceProvider');
 	}
 
 }
