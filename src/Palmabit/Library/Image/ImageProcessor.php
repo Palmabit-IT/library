@@ -56,7 +56,7 @@ class ImageProcessor
 	public static function delete($filePath)
 	{
 		if(!File::delete(public_path() . $filePath)){
-			throw new ImageEvidenceException(new MessageBag(['Errore nell\'eliminazione dell\'immagine evidenza']));
+			throw new ImageEvidenceException(new MessageBag(['Errore nell\'eliminazione dell\'immagine']));
 		}
 		return true;
 	}
