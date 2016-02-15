@@ -28,7 +28,10 @@
       return $this->helper->resizeImage($this->image, $this->height, $this->width);
     }
 
-    public function resizeByRatio() {
+    /**
+     * @return Image cropped and resized by ratio
+     */
+    public function fit() {
       $ratio = $this->getRatio();
       if (intval($this->image->width() / $ratio > $this->image->height())) {
         return $this->image->fit(intval($this->image->height() * $ratio), $this->image->height());
